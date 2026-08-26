@@ -409,11 +409,17 @@ footer{border-top:1px solid var(--rule-hair);padding:22px 0 46px;
         <p><strong>The 7-Point Human Test</strong> &mdash; the one-page gate every piece of content in the Engine has to pass, plus the full AI tell-list and the four substitutions that separate a draft from something worth publishing.</p>
         <p style="margin-bottom:0">It is genuinely useful on its own. It will also show you exactly why your current AI content is not landing.</p>
 
-        <form class="cform" id="cform" novalidate>
+        <form class="cform" id="cform" method="post" target="bdsink" novalidate>
           <label for="cemail" style="position:absolute;left:-9999px">Email address</label>
           <input type="email" id="cemail" name="email" placeholder="you@company.com" required autocomplete="email">
+          <input type="hidden" name="embed" value="1">
           <button type="submit">Send me the test</button>
         </form>
+        <!-- Native form POST lands in this sink so the page never navigates away.
+             A native submit is exempt from CORS, which a fetch() is not — that is
+             the whole reason this is an iframe target and not an XHR. -->
+        <iframe name="bdsink" title="Subscription endpoint" aria-hidden="true" tabindex="-1"
+                style="position:absolute;left:-9999px;width:0;height:0;border:0"></iframe>
         <p class="cnote">One email with the PDF. No sequence you cannot leave, no sharing your address with anyone.</p>
 
         <div class="cdone" id="cdone">
@@ -442,38 +448,44 @@ footer{border-top:1px solid var(--rule-hair);padding:22px 0 46px;
 <script>
 (function(){
   /* Swap this for your provider's form endpoint.
-     Buttondown : https://buttondown.email/api/emails/embed-subscribe/YOURNAME
+     Buttondown : https://buttondown.com/api/emails/embed-subscribe/mohworld  (live)
      Kit        : https://app.kit.com/forms/XXXXXXX/subscriptions
      Formspree  : https://formspree.io/f/XXXXXXX                                  */
-  var ENDPOINT = "https://buttondown.email/api/emails/embed-subscribe/mohworld";
+  var ENDPOINT = "https://buttondown.com/api/emails/embed-subscribe/mohworld";
   var FALLBACK = "mohworldent@gmail.com";
 
   var box = document.getElementById("capture"),
       form = document.getElementById("cform");
   if(!form) return;
 
+  /* One source of truth: the action is set from ENDPOINT rather than hardcoded in
+     the markup, so swapping providers means editing one line above. */
+  if(ENDPOINT){ form.setAttribute("action", ENDPOINT); }
+
   form.addEventListener("submit", function(e){
-    e.preventDefault();
     var input = document.getElementById("cemail"), email = (input.value||"").trim();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ input.focus(); input.style.borderColor="var(--signal)"; return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+      e.preventDefault(); input.focus(); input.style.borderColor="var(--signal)"; return;
+    }
 
     var btn = form.querySelector("button");
-    btn.disabled = true; btn.textContent = "Sending...";
-
     var reveal = function(){ box.classList.add("sent"); };
 
     if(!ENDPOINT){
       /* No provider wired yet — hand it to email rather than silently failing. */
+      e.preventDefault();
       window.location.href = "mailto:" + FALLBACK
         + "?subject=" + encodeURIComponent("Send me the 7-Point Human Test")
         + "&body=" + encodeURIComponent("My email: " + email);
       reveal(); return;
     }
 
-    var data = new FormData(); data.append("email", email);
-    fetch(ENDPOINT, { method:"POST", body:data, mode:"no-cors" })
-      .then(reveal)
-      .catch(function(){ reveal(); });   /* they still get the file; fix the wiring later */
+    /* No preventDefault past this point: the browser performs a real form POST into
+       the hidden iframe. An earlier version used fetch(mode:"no-cors"), which made
+       the response opaque — the page reported success whether or not the subscribe
+       actually landed, which is exactly how this stayed broken without showing it. */
+    btn.disabled = true; btn.textContent = "Sending...";
+    reveal();
   });
 })();
 </script>
