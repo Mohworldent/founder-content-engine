@@ -489,5 +489,52 @@ footer{border-top:1px solid var(--rule-hair);padding:22px 0 46px;
 })();
 </script>
 
+<script>
+(function(){
+  /* ---- Meta pixel -------------------------------------------------------
+     Paste the ID from Events Manager between the quotes below. Until you do,
+     this block returns immediately and loads nothing — no requests, no cookies,
+     no consent obligation. Activating it is a one-line change and a redeploy.
+
+     Retargeting audiences accumulate from the moment this goes live, not from
+     the moment you start spending, which is the whole reason it ships early. */
+  var PIXEL_ID = "";
+  if(!PIXEL_ID) return;
+
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+  (window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+
+  fbq("init", PIXEL_ID);
+  fbq("track", "PageView");
+
+  /* Lead — fires on an actual submit, not on arrival. Optimising ad delivery
+     toward this rather than toward PageView is what makes a $49 funnel viable:
+     a free download reaches the ~50 weekly conversions Meta needs to leave the
+     learning phase, where paid purchases never would. */
+  var cform = document.getElementById("cform");
+  if(cform){
+    cform.addEventListener("submit", function(){
+      fbq("track", "Lead", { content_name: "7-Point Human Test" });
+    });
+  }
+
+  /* InitiateCheckout — checkout happens on gumroad.com, so this is the last
+     event this origin can observe. Purchase has to come from Gumroad's own
+     pixel field, using this same ID. */
+  Array.prototype.forEach.call(
+    document.querySelectorAll('a[href*="gumroad.com"]'),
+    function(a){
+      a.addEventListener("click", function(){
+        fbq("track", "InitiateCheckout",
+            { value: 49, currency: "USD", content_name: "Founder Content Engine" });
+      });
+    }
+  );
+})();
+</script>
+
 </body>
 </html>
