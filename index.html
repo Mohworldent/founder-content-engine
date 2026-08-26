@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Founder Content Engine — Build a month of founder content without spending your month creating it.</title>
+<meta name="description" content="An AI-assisted content operating system for founders, consultants and agency owners. One file. 15 modules, 20 machines, 29 prompts that carry your real context.">
+<link rel="canonical" href="https://mohworldent.github.io/founder-content-engine/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Founder Content Engine">
+<meta property="og:title" content="Founder Content Engine — Build a month of founder content without spending your month creating it.">
+<meta property="og:description" content="An AI-assisted content operating system for founders, consultants and agency owners. One file. 15 modules, 20 machines, 29 prompts that carry your real context.">
+<meta property="og:url" content="https://mohworldent.github.io/founder-content-engine/">
+<meta property="og:image" content="https://mohworldent.github.io/founder-content-engine/og-image.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Founder Content Engine">
+<meta name="twitter:description" content="An AI-assisted content operating system for founders, consultants and agency owners. One file. 15 modules, 20 machines, 29 prompts that carry your real context.">
+<meta name="twitter:image" content="https://mohworldent.github.io/founder-content-engine/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+:root{
+  --ground:#F1F3F1; --plate:#FBFCFA; --plate-2:#E7EAE7;
+  --rule:#C9CFCB; --rule-hair:#DCE0DC;
+  --ink:#16191B; --ink-2:#414A4C; --ink-3:#6C7671; --ink-4:#98A19C;
+  --steel:#3D4A52; --signal:#D9451B; --signal-ink:#FFFFFF; --signal-wash:#F7E7E1;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#13171A; --plate:#1A1F23; --plate-2:#222930;
+  --rule:#333C43; --rule-hair:#262E34;
+  --ink:#EDF0EE; --ink-2:#BFC7C6; --ink-3:#8B9691; --ink-4:#6A7570;
+  --steel:#9DB0BB; --signal:#FF6A3D; --signal-ink:#16191B; --signal-wash:#2A1A13;
+}}
+:root[data-theme="dark"]{
+  --ground:#13171A; --plate:#1A1F23; --plate-2:#222930;
+  --rule:#333C43; --rule-hair:#262E34;
+  --ink:#EDF0EE; --ink-2:#BFC7C6; --ink-3:#8B9691; --ink-4:#6A7570;
+  --steel:#9DB0BB; --signal:#FF6A3D; --signal-ink:#16191B; --signal-wash:#2A1A13;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17.5px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:1080px;margin:0 auto;padding:0 28px}
+@media (max-width:640px){.shell{padding:0 18px}}
+
+/* ---------- annotated spec-sheet grid ---------- */
+.row{display:grid;grid-template-columns:132px minmax(0,1fr);gap:32px;
+  padding:44px 0;border-top:1px solid var(--rule-hair)}
+.row:first-of-type{border-top:0}
+.gutter{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4);line-height:1.7;
+  padding-top:9px;border-right:1px solid var(--rule-hair);min-height:100%}
+.gutter b{display:block;color:var(--signal);font-weight:700}
+.body{max-width:64ch}
+@media (max-width:760px){
+  .row{grid-template-columns:1fr;gap:14px;padding:34px 0}
+  .gutter{border-right:0;border-left:2px solid var(--signal);padding:0 0 0 12px;min-height:0}
+}
+
+h1,h2,h3,.plate-name{font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  text-wrap:balance;margin:0}
+h2{font-size:clamp(26px,3.6vw,36px);font-weight:700;letter-spacing:-.026em;line-height:1.1;margin-bottom:16px}
+h3{font-size:19px;font-weight:600;letter-spacing:-.015em;margin:26px 0 6px}
+p{margin:0 0 16px}
+p:last-child{margin-bottom:0}
+strong{font-weight:600}
+em{font-style:italic}
+a{color:var(--signal)}
+
+.lead{font-size:20.5px;line-height:1.5;color:var(--ink-2)}
+.small{font-size:15px;color:var(--ink-3);line-height:1.55}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+/* ---------- hero nameplate ---------- */
+.hero{padding:56px 0 8px}
+.plate{border:1.5px solid var(--ink);background:var(--plate);position:relative;
+  padding:38px 36px 34px;box-shadow:6px 6px 0 var(--plate-2)}
+@media (max-width:640px){.plate{padding:26px 20px 24px;box-shadow:4px 4px 0 var(--plate-2)}}
+.rivet{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--rule);border:1px solid var(--ink-4)}
+.rivet.tl{top:9px;left:9px}.rivet.tr{top:9px;right:9px}
+.rivet.bl{bottom:9px;left:9px}.rivet.br{bottom:9px;right:9px}
+
+.stamp{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--signal);margin-bottom:20px}
+.plate-name{font-size:clamp(15px,2.1vw,19px);font-weight:600;letter-spacing:.02em;
+  color:var(--ink-3);text-transform:uppercase;margin-bottom:10px}
+h1{font-size:clamp(34px,6.4vw,64px);font-weight:800;letter-spacing:-.038em;line-height:.98;margin-bottom:18px}
+h1 .neg{display:block;color:var(--ink-3)}
+.promise{font-size:clamp(18px,2.3vw,22px);line-height:1.42;color:var(--ink-2);max-width:30ch;margin-bottom:26px}
+
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  border-top:1px solid var(--rule);margin-top:28px}
+.spec{padding:14px 16px 12px;border-right:1px solid var(--rule-hair)}
+.spec:last-child{border-right:0}
+.spec dt{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-4);margin-bottom:5px}
+.spec dd{margin:0;font-family:"Archivo",sans-serif;font-size:15.5px;font-weight:600;letter-spacing:-.01em;
+  font-variant-numeric:tabular-nums}
+
+.fade{opacity:0;transform:translateY(7px);animation:rise .5s cubic-bezier(.2,.7,.3,1) forwards}
+.fade:nth-child(1){animation-delay:.04s}.fade:nth-child(2){animation-delay:.1s}
+.fade:nth-child(3){animation-delay:.16s}.fade:nth-child(4){animation-delay:.22s}
+@keyframes rise{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fade{animation:none;opacity:1;transform:none}}
+
+/* ---------- buy ---------- */
+.buy{display:inline-flex;align-items:baseline;gap:11px;background:var(--signal);color:var(--signal-ink);
+  font-family:"Archivo",sans-serif;font-size:17px;font-weight:700;letter-spacing:-.01em;
+  padding:15px 26px;text-decoration:none;border:1.5px solid var(--signal);transition:transform .12s,box-shadow .12s}
+.buy:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.buy:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.buy .p{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.buyline{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:26px}
+.buyline .small{margin:0}
+
+/* ---------- content bits ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:700px){.split{grid-template-columns:1fr}}
+
+.card{border:1px solid var(--rule);background:var(--plate);padding:20px 22px}
+.card h3{margin-top:0}
+.card .small:last-child{margin-bottom:0}
+
+.mods{display:grid;gap:0;border-top:1px solid var(--rule)}
+.mod{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding:15px 2px;
+  border-bottom:1px solid var(--rule-hair);align-items:baseline}
+.mod .no{font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:700;color:var(--signal);
+  letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.mod b{font-family:"Archivo",sans-serif;font-size:16.5px;font-weight:600;letter-spacing:-.012em;display:block;margin-bottom:2px}
+.mod span{font-size:15px;color:var(--ink-3);line-height:1.5}
+
+.flowline{display:flex;flex-wrap:wrap;gap:7px;align-items:center;
+  font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:500;letter-spacing:.06em;
+  text-transform:uppercase;margin:6px 0 20px}
+.flowline b{background:var(--plate);border:1px solid var(--rule);padding:6px 10px;font-weight:700;color:var(--ink)}
+.flowline i{font-style:normal;color:var(--ink-4)}
+
+.tbl{width:100%;border-collapse:collapse;font-size:15.5px}
+.tbl th{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);text-align:left;font-weight:700;padding:0 14px 9px 0;border-bottom:1px solid var(--rule)}
+.tbl td{padding:11px 14px 11px 0;border-bottom:1px solid var(--rule-hair);vertical-align:top;line-height:1.45}
+.tbl td:first-child{color:var(--ink-3)}
+.tbl td:last-child{padding-right:0}
+.tblwrap{overflow-x:auto}
+
+.marks{list-style:none;padding:0;margin:0}
+.marks li{position:relative;padding:6px 0 6px 24px;font-size:16px;line-height:1.5}
+.marks li::before{content:"";position:absolute;left:0;top:15px;width:9px;height:1.5px;background:var(--signal)}
+.marks.no li::before{background:var(--ink-4)}
+
+.quotebox{border-left:3px solid var(--signal);background:var(--signal-wash);padding:18px 22px;margin:22px 0}
+.quotebox p{margin:0;font-size:18.5px;line-height:1.45}
+
+.faq{border-top:1px solid var(--rule-hair)}
+.faq details{border-bottom:1px solid var(--rule-hair)}
+.faq summary{cursor:pointer;list-style:none;padding:15px 0;font-family:"Archivo",sans-serif;
+  font-size:16.5px;font-weight:600;letter-spacing:-.01em;display:flex;gap:12px;align-items:baseline}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";font-family:"JetBrains Mono",monospace;color:var(--signal);font-weight:700;font-size:15px}
+.faq details[open] summary::before{content:"\2212"}
+.faq summary:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+.faq .ans{padding:0 0 18px 24px;font-size:16px;color:var(--ink-2);line-height:1.55;max-width:62ch}
+.faq .ans p:last-child{margin-bottom:0}
+
+.close{padding:52px 0 70px;border-top:1.5px solid var(--ink);margin-top:20px}
+.close h2{font-size:clamp(28px,4.6vw,46px);letter-spacing:-.032em;max-width:16ch}
+
+/* ---------- demo ---------- */
+.demo{border:1.5px solid var(--ink);background:var(--plate);box-shadow:5px 5px 0 var(--plate-2);
+  margin:0 0 22px;position:relative;overflow:hidden}
+.demo video,.demo img{display:block;width:100%;height:auto}
+.demo figcaption{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-4);padding:10px 14px;border-top:1px solid var(--rule-hair)}
+
+/* ---------- email capture ---------- */
+.capture{border:1.5px solid var(--ink);background:var(--plate);padding:26px 28px;box-shadow:5px 5px 0 var(--plate-2)}
+.capture h3{margin:0 0 8px;font-size:22px;letter-spacing:-.02em}
+.capture p{font-size:16px;color:var(--ink-2)}
+.cform{display:flex;gap:10px;margin:18px 0 0;flex-wrap:wrap}
+.cform input[type=email]{flex:1;min-width:220px;font-family:"Source Serif 4",Georgia,serif;font-size:16px;
+  padding:13px 15px;border:1.5px solid var(--rule);background:var(--ground);color:var(--ink);border-radius:0}
+.cform input[type=email]:focus{outline:none;border-color:var(--signal)}
+.cform button{font-family:"Archivo",sans-serif;font-size:15px;font-weight:700;letter-spacing:-.01em;
+  padding:13px 22px;background:var(--ink);color:var(--ground);border:1.5px solid var(--ink);cursor:pointer;
+  transition:transform .12s,box-shadow .12s}
+.cform button:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--signal)}
+.cform button:focus-visible{outline:3px solid var(--signal);outline-offset:3px}
+.cnote{font-size:13.5px;color:var(--ink-4);margin:12px 0 0}
+.cdone{display:none;border-left:3px solid var(--signal);background:var(--signal-wash);padding:16px 18px;margin:18px 0 0}
+.cdone a{font-weight:600}
+.capture.sent .cform,.capture.sent .cnote{display:none}
+.capture.sent .cdone{display:block}
+
+footer{border-top:1px solid var(--rule-hair);padding:22px 0 46px;
+  font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink-4);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+
+<div class="shell">
+
+  <!-- ============ HERO NAMEPLATE ============ -->
+  <section class="hero">
+    <div class="plate">
+      <span class="rivet tl"></span><span class="rivet tr"></span>
+      <span class="rivet bl"></span><span class="rivet br"></span>
+
+      <div class="fade">
+        <div class="stamp">For founders, consultants, coaches &amp; agency owners</div>
+        <div class="plate-name">Founder Content Engine</div>
+      </div>
+      <h1 class="fade">Stop asking AI<br>for content.<span class="neg">Build the system instead.</span></h1>
+      <p class="promise fade">A system that knows what you should say, how you should say it, and how to turn one idea into a month of content.</p>
+
+      <div class="fade">
+        <div class="buyline">
+          <a class="buy" href="https://mohworldent.gumroad.com/l/engine" target="_blank" rel="noopener">Get the Engine <span class="p">$49</span></a>
+          <p class="small">Instant access &middot; Works offline &middot; No subscription &middot; Nothing to create an account for</p>
+        </div>
+
+        <dl class="specs">
+          <div class="spec"><dt>Category</dt><dd>Content OS</dd></div>
+          <div class="spec"><dt>Modules</dt><dd>15</dd></div>
+          <div class="spec"><dt>Machines</dt><dd>20</dd></div>
+          <div class="spec"><dt>Prompts</dt><dd>29</dd></div>
+          <div class="spec"><dt>Setup time</dt><dd>60 min</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROBLEM ============ -->
+  <div class="row">
+    <div class="gutter"><b>Diagnosis</b>The actual fault</div>
+    <div class="body">
+      <h2>Everything worth publishing this year is already in your head.</h2>
+      <p>You know things. Six years of client work. Three hundred sales calls. The mistake you've watched forty businesses make. The opinion half your industry would argue with. The thing you changed that fixed everything.</p>
+      <p>None of it is on your feed.</p>
+      <p>Instead, Monday looks like this: you open ChatGPT, ask for post ideas, and get thirty topics that could have been written for anyone in your industry. You pick one, generate a draft, read it, and feel vaguely embarrassed. Six weeks later you announce you're &ldquo;getting back to posting consistently.&rdquo;</p>
+      <div class="quotebox"><p><strong>No prompt fixes that, because the model has never been told a single thing about you.</strong></p></div>
+      <p class="small">There is no prompt sophisticated enough to compensate for an AI that doesn't know who you are, who you serve, what you believe, what you've actually done, or how you talk.</p>
+    </div>
+  </div>
+
+  <!-- ============ SHIFT ============ -->
+  <div class="row">
+    <div class="gutter"><b>Principle</b>The operating split</div>
+    <div class="body">
+      <h2>AI starts <em>after</em> your thinking begins.</h2>
+      <div class="tblwrap"><table class="tbl">
+        <tr><th>You supply</th><th>AI supplies</th></tr>
+        <tr><td>Perspective</td><td>Research</td></tr>
+        <tr><td>Experience</td><td>Structure</td></tr>
+        <tr><td>Judgment</td><td>Drafting speed</td></tr>
+        <tr><td>Proof</td><td>Multiplication</td></tr>
+        <tr><td>The decision to publish</td><td>&mdash; never this</td></tr>
+      </table></div>
+      <p style="margin-top:18px">The Engine is built entirely around that split. You spend one honest hour teaching it who you are. After that, every prompt in it stops being generic &mdash; because it carries your business, your buyers, your beliefs, your stories and your vocabulary into every request.</p>
+    </div>
+  </div>
+
+  <!-- ============ WHAT IT IS ============ -->
+  <div class="row">
+    <div class="gutter"><b>Contents</b>15 modules</div>
+    <div class="body">
+      <h2>A file you open on Monday morning.</h2>
+      <p>One application file. Download it, open it in any browser, and it runs &mdash; offline, no account, no subscription, no data leaving your machine.</p>
+
+            <figure class="demo">
+        <video autoplay loop muted playsinline preload="metadata" poster="demo-poster.png">
+          <source src="demo.mp4" type="video/mp4">
+          <img src="demo.gif" alt="The Founder Content Engine running: Source File, strategy, machines, prompts, dashboard.">
+        </video>
+        <figcaption>The actual product &middot; 39 seconds &middot; no narration</figcaption>
+      </figure>
+
+
+
+      <div class="mods">
+        <div class="mod"><span class="no">01</span><div><b>The Founder Source File</b><span>Twelve sections that extract your business, audience, expertise, point of view, stories, proof, voice, anti-voice, boundaries and goals. Complete once. Reused forever.</span></div></div>
+        <div class="mod"><span class="no">02</span><div><b>The Content Strategy Engine</b><span>Pillars, territories, the 12-Angle Matrix, and an Idea Quality Score that kills weak ideas before they cost you a production cycle.</span></div></div>
+        <div class="mod"><span class="no">03</span><div><b>8 Carousel Machines</b><span>Slide-by-slide structures, worked examples, the right CTA for each, a design brief and a quality score.</span></div></div>
+        <div class="mod"><span class="no">04</span><div><b>8 Video Machines</b><span>Hook, structure, spoken script shape, B-roll list, on-screen text, camera direction, shot list.</span></div></div>
+        <div class="mod"><span class="no">05</span><div><b>4 Newsletter Machines</b><span>A rotation you can sustain for two years without dreading Thursday.</span></div></div>
+        <div class="mod"><span class="no">06</span><div><b>The Repurposing Engine</b><span>One approved idea into eleven assets &mdash; including the sales asset almost nobody builds.</span></div></div>
+        <div class="mod"><span class="no">07</span><div><b>The Human Editor System</b><span>The De-Slop pass, the AI tell-list, specificity injection, the Invention Audit and the 7-Point Human Test.</span></div></div>
+        <div class="mod"><span class="no">08</span><div><b>Monthly Engine + Content Dashboard</b><span>A four-week operating rhythm and a live pipeline board so nothing dies in drafts. Exports to CSV.</span></div></div>
+        <div class="mod"><span class="no">09</span><div><b>29 workflow prompts</b><span>Not five hundred. Twenty-nine that run <em>in sequence</em> &mdash; each auto-injecting your Source File when you press Copy.</span></div></div>
+        <div class="mod"><span class="no">10</span><div><b>A complete worked month</b><span>The system run on <strong>two real businesses</strong> &mdash; a talent agency taken from a standing start to a sustained ~47% email open rate, and a nine-module software platform. Including the metric that went <em>down</em> while business results went up, and the mistake that produced the best post of the quarter.</span></div></div>
+        <div class="mod"><span class="no">+</span><div><b>Bonus &middot; The 30-Day Challenge</b><span>One assignment a day, most under twenty minutes, with a tracker built in. By day 30 you will have run the whole system once, on your own business, with real output to show for it.</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MECHANISM ============ -->
+  <div class="row">
+    <div class="gutter"><b>Mechanism</b>The FCE Method</div>
+    <div class="body">
+      <h2>Seven stages. Every one has a component.</h2>
+      <div class="flowline">
+        <b>Capture</b><i>&rarr;</i><b>Strategize</b><i>&rarr;</i><b>Create</b><i>&rarr;</i><b>Humanize</b><i>&rarr;</i><b>Multiply</b><i>&rarr;</i><b>Publish</b><i>&rarr;</i><b>Learn</b>
+      </div>
+      <p class="small">Nothing here is theory. Every module produces a tangible output, or it was cut before it shipped.</p>
+    </div>
+  </div>
+
+  <!-- ============ CONTRAST ============ -->
+  <div class="row">
+    <div class="gutter"><b>Comparison</b>Why this one</div>
+    <div class="body">
+      <h2>Deliberately smaller than the alternatives.</h2>
+      <div class="tblwrap"><table class="tbl">
+        <tr><th>The usual product</th><th>Founder Content Engine</th></tr>
+        <tr><td>500 prompts</td><td>29 that run in sequence and carry your context</td></tr>
+        <tr><td>50 carousel templates</td><td>8 machines &times; your expertise &mdash; and none of it looks like everyone else's</td></tr>
+        <tr><td>A Notion workspace to configure</td><td>A file that opens and works</td></tr>
+        <tr><td>&ldquo;Make it sound human&rdquo;</td><td>A defined De-Slop pass, an AI tell-list and a 7-point publish gate</td></tr>
+        <tr><td>Ideas</td><td>A scoring system that kills weak ideas before they cost you an evening</td></tr>
+        <tr><td>A PDF you read once</td><td>A dashboard, tracker and Source File you operate</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ============ FIT ============ -->
+  <div class="row">
+    <div class="gutter"><b>Fit</b>Read both lists</div>
+    <div class="body">
+      <div class="split">
+        <div class="card">
+          <h3>Built for</h3>
+          <ul class="marks">
+            <li>Consultants, coaches and agency owners who sell expertise</li>
+            <li>B2B and SaaS founders who need to be visible to one specific buyer</li>
+            <li>Independent experts and service businesses</li>
+            <li>Anyone whose knowledge <em>is</em> the product</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Not for</h3>
+          <ul class="marks no">
+            <li>People who want content written entirely for them with no input</li>
+            <li>Faceless accounts with no founder and no point of view</li>
+            <li>Anyone chasing virality as the goal</li>
+            <li>Anyone unwilling to spend one honest hour on the Source File</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ HONEST ============ -->
+  <div class="row">
+    <div class="gutter"><b>Limits</b>Stated plainly</div>
+    <div class="body">
+      <h2>What it does and doesn't do.</h2>
+      <p>You will still put in the hours. What changes is that the work becomes <strong>repeatable</strong> instead of improvised every week.</p>
+      <p>Month one takes real work &mdash; you're building the asset. From month two the same output costs roughly a third of the time, because the Source File is done, the ideas are scored and the machines are familiar.</p>
+      <p>It also doesn't promise reach. Nobody honest can. What it promises is that you'll stop publishing things any competitor could have written, and start publishing things only you could have.</p>
+    </div>
+  </div>
+
+  <!-- ============ PRICE ============ -->
+  <div class="row" id="buy">
+    <div class="gutter"><b>Price</b>One payment</div>
+    <div class="body">
+      <h2>$49. Lifetime access to version&nbsp;1.</h2>
+      <p>No subscription. No upsell wall. No &ldquo;advanced module&rdquo; you find out about after you pay. Every update to v1 included.</p>
+      <div class="buyline">
+        <a class="buy" href="https://mohworldent.gumroad.com/l/engine" target="_blank" rel="noopener">Get the Engine <span class="p">$49</span></a>
+      </div>
+      <h3>The guarantee</h3>
+      <p class="small">Complete the Source File and run one full cycle. If it doesn't change how you produce content, email me and I'll refund you. No form, no &ldquo;did you try everything.&rdquo; One email.</p>
+    </div>
+  </div>
+
+  <!-- ============ FAQ ============ -->
+  <div class="row">
+    <div class="gutter"><b>Questions</b>The real ones</div>
+    <div class="body">
+      <div class="faq">
+        <details><summary>Which AI do I need?</summary><div class="ans"><p>Claude, ChatGPT or Gemini &mdash; any current paid tier. The Engine is deliberately model-agnostic. Models change every quarter; mechanisms don't.</p></div></details>
+        <details><summary>Is this just prompts?</summary><div class="ans"><p>No. Prompts are one of ten components, and they're the least important one. The Source File, the Idea Quality Score and the Human Editor System are what make the prompts work at all.</p></div></details>
+        <details><summary>Will my content sound like AI?</summary><div class="ans"><p>Not if you run the system. The Human Editor module exists specifically to prevent it &mdash; a De-Slop pass, a tell-list, specificity injection and a 7-point publish gate. And your Source File gets more accurate every month, because you feed corrections back into it.</p></div></details>
+        <details><summary>I already use AI for content. What does this add?</summary><div class="ans"><p>Context and judgment. Most people run excellent prompts against terrible context, then edit for polish instead of specificity. This fixes the order.</p></div></details>
+        <details><summary>How long before it works?</summary><div class="ans"><p>You'll have a publishable asset within an hour and a working rhythm within a month. Business results from content are a lagging indicator &mdash; anyone who tells you otherwise is selling something worse than this.</p></div></details>
+        <details><summary>Do I need design skills?</summary><div class="ans"><p>No. The product teaches words first, design second, deliberately. A well-argued carousel in plain type beats a beautiful one with nothing to say.</p></div></details>
+        <details><summary>Is my data private?</summary><div class="ans"><p>Completely. There's no server and no account. Everything you type stays in your browser and works offline. There's a one-click backup file if you want to move machines.</p></div></details>
+        <details><summary>What if I have no proof or case studies yet?</summary><div class="ans"><p>The Proof Inventory prompt tells you exactly what to start documenting so that in 90 days you have evidence you currently lack. The Engine will never invent it for you &mdash; that's the entire point.</p></div></details>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CAPTURE ============ -->
+  <div class="row">
+    <div class="gutter"><b>Free</b>Start here instead</div>
+    <div class="body">
+      <div class="capture" id="capture">
+        <h3>Not ready to buy? Take the test first.</h3>
+        <p><strong>The 7-Point Human Test</strong> &mdash; the one-page gate every piece of content in the Engine has to pass, plus the full AI tell-list and the four substitutions that separate a draft from something worth publishing.</p>
+        <p style="margin-bottom:0">It is genuinely useful on its own. It will also show you exactly why your current AI content is not landing.</p>
+
+        <form class="cform" id="cform" novalidate>
+          <label for="cemail" style="position:absolute;left:-9999px">Email address</label>
+          <input type="email" id="cemail" name="email" placeholder="you@company.com" required autocomplete="email">
+          <button type="submit">Send me the test</button>
+        </form>
+        <p class="cnote">One email with the PDF. No sequence you cannot leave, no sharing your address with anyone.</p>
+
+        <div class="cdone" id="cdone">
+          <p style="margin:0"><strong>Done.</strong> <a href="https://mohworldent.github.io/founder-content-engine/the-7-point-human-test.pdf" target="_blank" rel="noopener">Download the test now</a> &mdash; a copy is also on its way to your inbox.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CLOSE ============ -->
+  <section class="close">
+    <h2>You already know enough to publish for a year.</h2>
+    <p class="lead" style="max-width:56ch;margin:0 0 26px">You have never been short of things to say. What has been missing is a way to get them out of your head, into a shape worth reading, and in front of the person who can hire you.</p>
+    <div class="buyline">
+      <a class="buy" href="https://mohworldent.gumroad.com/l/engine" target="_blank" rel="noopener">Get Founder Content Engine <span class="p">$49</span></a>
+    </div>
+  </section>
+
+  <footer>
+    <span>Founder Content Engine &middot; v1.0</span>
+    <span>Instant download &middot; Works offline &middot; One-email refund policy</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  /* Swap this for your provider's form endpoint.
+     Buttondown : https://buttondown.email/api/emails/embed-subscribe/YOURNAME
+     Kit        : https://app.kit.com/forms/XXXXXXX/subscriptions
+     Formspree  : https://formspree.io/f/XXXXXXX                                  */
+  var ENDPOINT = "";
+  var FALLBACK = "mohworldent@gmail.com";
+
+  var box = document.getElementById("capture"),
+      form = document.getElementById("cform");
+  if(!form) return;
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var input = document.getElementById("cemail"), email = (input.value||"").trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ input.focus(); input.style.borderColor="var(--signal)"; return; }
+
+    var btn = form.querySelector("button");
+    btn.disabled = true; btn.textContent = "Sending...";
+
+    var reveal = function(){ box.classList.add("sent"); };
+
+    if(!ENDPOINT){
+      /* No provider wired yet — hand it to email rather than silently failing. */
+      window.location.href = "mailto:" + FALLBACK
+        + "?subject=" + encodeURIComponent("Send me the 7-Point Human Test")
+        + "&body=" + encodeURIComponent("My email: " + email);
+      reveal(); return;
+    }
+
+    var data = new FormData(); data.append("email", email);
+    fetch(ENDPOINT, { method:"POST", body:data, mode:"no-cors" })
+      .then(reveal)
+      .catch(function(){ reveal(); });   /* they still get the file; fix the wiring later */
+  });
+})();
+</script>
+
+</body>
+</html>

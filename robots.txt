@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mohworldent.github.io/founder-content-engine/sitemap.xml
