@@ -439,7 +439,7 @@ footer{border-top:1px solid var(--rule-hair);padding:22px 0 46px;
 
   <footer>
     <span>Founder Content Engine &middot; v1.0</span>
-    <span>Instant download &middot; Works offline &middot; One-email refund policy</span>
+    <span>Instant download &middot; Works offline &middot; One-email refund policy &middot; <a href="partners/">Partner program</a></span>
   </footer>
 
 </div>
@@ -485,6 +485,22 @@ footer{border-top:1px solid var(--rule-hair);padding:22px 0 46px;
        actually landed, which is exactly how this stayed broken without showing it. */
     btn.disabled = true; btn.textContent = "Sending...";
     reveal();
+  });
+})();
+</script>
+
+<script id="fce-attribution-forwarding">
+(function(){
+  var incoming = new URLSearchParams(window.location.search);
+  var allowed = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"];
+  var defaults = {utm_source:"fce_site",utm_medium:"website",utm_campaign:"evergreen"};
+  Array.prototype.forEach.call(document.querySelectorAll('a[href*="mohworldent.gumroad.com/l/engine"]'),function(a){
+    var checkout = new URL(a.href);
+    allowed.forEach(function(key){
+      var value = incoming.get(key) || defaults[key];
+      if(value) checkout.searchParams.set(key,value);
+    });
+    a.href = checkout.toString();
   });
 })();
 </script>
