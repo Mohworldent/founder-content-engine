@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://mohworldent.github.io/founder-content-engine/</loc><priority>1.0</priority></url>
   <url><loc>https://mohworldent.github.io/founder-content-engine/human-test/</loc><priority>0.8</priority></url>
+  <url><loc>https://mohworldent.github.io/founder-content-engine/worked-example/</loc><priority>0.8</priority></url>
   <url><loc>https://mohworldent.github.io/founder-content-engine/ai-content-system-for-founders/</loc><priority>0.8</priority></url>
   <url><loc>https://mohworldent.github.io/founder-content-engine/partners/</loc><priority>0.6</priority></url>
 </urlset>
